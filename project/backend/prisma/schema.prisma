@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String
+  email     String   @unique
+  password  String
+  isAdmin   Boolean
+  createdAt DateTime @default(now())
+}
+
+model Report {
+  id             String   @id @default(uuid())
+  userId         String
+  name           String
+  age            Int
+  location       Json
+  bullyingType   String
+  perpetratorInfo Json
+  evidenceLinks  String[]
+  timestamp      DateTime @default(now())
+  status         String
+  severity       String
+  isAnonymous    Boolean
+  description    String?
+}
+
+model Question {
+  id          String   @id @default(uuid())
+  userId      String
+  username    String
+  title       String
+  content     String
+  createdAt   DateTime @default(now())
+  answers     Json
+  isAnonymous Boolean
+  status      String
+  description String?
+}
+
+model Experience {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String
+  content     String
+  tags        String[]
+  timestamp   DateTime @default(now())
+  status      String
+  comments    Json
+  likes       Int
+  isAnonymous Boolean
+  author      Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String?
+}
